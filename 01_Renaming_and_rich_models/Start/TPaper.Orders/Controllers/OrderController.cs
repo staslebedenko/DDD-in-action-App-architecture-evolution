@@ -20,7 +20,7 @@ namespace TPaper.Orders
 
         [FunctionName("ProcessEdiOrder")]
         public async Task<IActionResult> ProcessEdiOrder(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "orders/create/{quantity}")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "orders/create/{quantity}")] HttpRequest req,
             decimal quantity,
             ILogger log,
             CancellationToken cts)
