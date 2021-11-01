@@ -13,13 +13,11 @@ using Newtonsoft.Json;
 
 namespace TPaper.DeliveryRequest
 {
-    public class DeliveryRequestController
+    public class DeliveryRequestService
     {
-        //private readonly PaperDbContext context;
 
-        private readonly ILogger<DeliveryRequestController> logger;
+        private readonly ILogger<DeliveryRequestService> logger;
 
-        private readonly HttpClient httpClient;
 
         private readonly IRepository<DeliveryRequest> deliveryRequestRepository;
 
@@ -27,15 +25,12 @@ namespace TPaper.DeliveryRequest
 
         private static readonly CloudQueue ReceivedOrderQueue = StorageAccountSetup.CreateCloudQueue("received-orders");
 
-        public DeliveryRequestController(
+        public DeliveryRequestService(
             IRepository<DeliveryRequest> deliveryRequestRepository,
-            HttpClient httpClient,
-            ILogger<DeliveryRequestController> logger)
+            ILogger<DeliveryRequestService> logger)
         {
-            //this.context = context;
             this.deliveryRequestRepository = deliveryRequestRepository;
             this.logger = logger;
-            this.httpClient = httpClient;
         }
 
         [FunctionName("ProcessEdiOrder")]
