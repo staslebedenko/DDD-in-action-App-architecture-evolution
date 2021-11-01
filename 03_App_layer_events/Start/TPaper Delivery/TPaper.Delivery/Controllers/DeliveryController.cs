@@ -7,6 +7,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace TPaper.Delivery
 {
@@ -22,27 +23,23 @@ namespace TPaper.Delivery
             this.logger = logger;
         }
 
-        [ProducesResponseType(typeof(Delivery), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(BadRequestObjectResult), (int)HttpStatusCode.BadRequest)]
         [FunctionName("CreateDelivery")]
-        public async Task<IActionResult> CreateDelivery(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "delivery/create/{clientId}/{ediOrderId}/{productCode}/{number}")] HttpRequest req,
-            int clientId,
-            int ediOrderId,
-            int productCode,
-            int number,
+        public async Task CreateDelivery(
+            [QueueTrigger("received-orders", Connection = "ordersAccConString")] string message,
             CancellationToken cts)
         {
             this.logger.LogInformation("C# HTTP trigger function processed a request.");
 
-            Product product = await this.context.Product.FirstOrDefaultAsync(x => x.ExternalCode == productCode, cts);
+            var deliveryRequest = JsonConvert.DeserializeObject<DeliveryRequestDto>(message);
+
+            Product product = await this.context.Product.FirstOrDefaultAsync(x => x.ExternalCode == deliveryRequest.ProductCode, cts);
 
             var newDelivery = new Delivery
             {
                 Id = 0,
-                ClientId = clientId,
-                EdiOrderId = ediOrderId,
-                Number = number,
+                ClientId = deliveryRequest.ClientId,
+                EdiOrderId = deliveryRequest.Id,
+                Number = deliveryRequest.Quantity,
                 ProductId = product.Id,
                 ProductCode = product.ExternalCode,
                 Notes = "Prepared for shipment"
@@ -50,8 +47,6 @@ namespace TPaper.Delivery
 
             Delivery savedDelivery = (await this.context.Delivery.AddAsync(newDelivery, cts)).Entity;
             await this.context.SaveChangesAsync(cts);
-
-            return new OkObjectResult(savedDelivery);
         }
     }
 }
