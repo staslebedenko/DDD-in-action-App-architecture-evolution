@@ -1,3 +1,4 @@
+using System.Net.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -12,15 +13,15 @@ namespace TPaper.Orders
     {
         private readonly PaperDbContext context;
 
-        private readonly DeliveryDbContext deliveryContext;
-
         private readonly ILogger<OrderController> logger;
 
-        public OrderController(PaperDbContext context, DeliveryDbContext deliveryContext, ILogger<OrderController> logger)
+        private readonly HttpClient httpClient;
+
+        public OrderController(PaperDbContext context, HttpClient httpClient, ILogger<OrderController> logger)
         {
             this.context = context;
-            this.deliveryContext = deliveryContext;
             this.logger = logger;
+            this.httpClient = httpClient;
         }
 
         [FunctionName("ProcessEdiOrder")]
@@ -36,10 +37,21 @@ namespace TPaper.Orders
             DeliveryRequest savedOrder = (await this.context.DeliveryRequest.AddAsync(deliveryRequest, cts)).Entity;
             await this.context.SaveChangesAsync(cts);
 
-            var deliveryController = new DeliveryController(deliveryContext);
-            string responseMessage = await deliveryController.ProcessEdiOrder(savedOrder, cts);
 
-            return new OkObjectResult(responseMessage);
+            Delivery deliveryModel = await CreateDeliveryForOrder(cts, savedOrder);
+
+            return new OkObjectResult($"Order processed and completed with delivery {deliveryModel.Id}");
+        }
+
+        private async Task<Delivery> CreateDeliveryForOrder(CancellationToken cts, DeliveryRequest deliveryRequest)
+        {
+            Delivery deliveryModel;
+            string url =
+                $"http://localhost:7072/api/delivery/create/{deliveryRequest.ClientId}/{deliveryRequest.Id}/{deliveryRequest.ProductCode}/{deliveryRequest.Quantity}";
+            HttpResponseMessage response = await this.httpClient.GetAsync(url, cts);
+            deliveryModel = await response.Content.ReadAsAsync<Delivery>(cts);
+
+            return deliveryModel;
         }
     }
 }

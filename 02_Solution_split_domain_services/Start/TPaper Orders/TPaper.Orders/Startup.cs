@@ -42,15 +42,7 @@ namespace TPaper.Orders
 
             PaperDbContext.ExecuteMigrations(connectionString);
 
-            builder.Services.AddDbContextPool<DeliveryDbContext>(options =>
-            {
-                if (!string.IsNullOrEmpty(connectionString))
-                {
-                    options.UseSqlServer(connectionString);
-                }
-            });
-
-            DeliveryDbContext.ExecuteMigrations(connectionString);
+            builder.Services.AddHttpClient();
         }
     }
 }
