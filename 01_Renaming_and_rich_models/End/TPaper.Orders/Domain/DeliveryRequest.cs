@@ -1,4 +1,6 @@
-﻿namespace TPaper.Orders
+﻿using System;
+
+namespace TPaper.Orders
 {
     public class EdiOrder
     {
@@ -13,8 +15,6 @@
         public string Notes { get; set; }
 
         public int? DeliveryId { get; set; }
-
-        public Delivery Delivery { get; set; }
 
         public bool IsValid()
         {

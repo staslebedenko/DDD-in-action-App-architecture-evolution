@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TPaperOrders.Migrations
+namespace TPaper.Orders
 {
     public partial class InitialMigration : Migration
     {

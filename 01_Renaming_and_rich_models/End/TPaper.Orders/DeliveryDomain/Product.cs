@@ -1,4 +1,6 @@
-﻿namespace TPaper.Orders
+﻿using System;
+
+namespace TPaper.Orders
 {
     public class Product
     {

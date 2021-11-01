@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TPaper.Orders
 {
     public class Delivery
     {
-        public Delivery()
-        {
-            this.Orders = new HashSet<EdiOrder>();
-        }
-
         public int Id { get; set; }
 
         public decimal Number { get; set; }
@@ -22,9 +18,5 @@ namespace TPaper.Orders
         public int ProductId { get; set; }
 
         public string Notes { get; set; }
-
-        public EdiOrder EdiOrder { get; set; }
-
-        public ICollection<EdiOrder> Orders { get; }
     }
 }

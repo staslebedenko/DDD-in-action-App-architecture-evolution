@@ -1,10 +1,10 @@
-﻿using System;
-using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
 using TPaper.Orders;
 
 [assembly: FunctionsStartup(typeof(Startup))]
@@ -19,7 +19,7 @@ namespace TPaper.Orders
 
             builder.Services.AddLogging(options =>
             {
-                options.AddFilter("TPaperOrders", LogLevel.Information);
+                options.AddFilter("TPaper.Orders", LogLevel.Information);
             });
 
             builder.Services.AddOptions<ProjectOptions>()
@@ -36,11 +36,21 @@ namespace TPaper.Orders
             {
                 if (!string.IsNullOrEmpty(connectionString))
                 {
-                    options.UseSqlServer(connectionString, providerOptions => providerOptions.EnableRetryOnFailure());
+                    options.UseSqlServer(connectionString);
                 }
             });
 
             PaperDbContext.ExecuteMigrations(connectionString);
+
+            builder.Services.AddDbContextPool<DeliveryDbContext>(options =>
+            {
+                if (!string.IsNullOrEmpty(connectionString))
+                {
+                    options.UseSqlServer(connectionString);
+                }
+            });
+
+            DeliveryDbContext.ExecuteMigrations(connectionString);
         }
     }
 }
