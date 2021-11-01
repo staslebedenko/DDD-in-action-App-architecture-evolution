@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace TPaper.Orders
+namespace TPaper.Delivery
 {
     public static class DeliveryContextConfiguration
     {

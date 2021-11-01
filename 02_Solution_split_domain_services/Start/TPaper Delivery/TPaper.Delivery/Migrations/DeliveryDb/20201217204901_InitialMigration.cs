@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TPaper.Orders.DeliveryDb
+namespace TPaper.Delivery.DeliveryDb
 {
     public partial class InitialMigration : Migration
     {

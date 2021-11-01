@@ -1,5 +1,5 @@
 ﻿
-namespace TPaper.Orders
+namespace TPaper.Delivery
 {
     public class ProjectOptions
     {

@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace TPaper.Orders
+namespace TPaper.Delivery
 {
     public class DeliveryContextFactory : IDesignTimeDbContextFactory<DeliveryDbContext>
     {

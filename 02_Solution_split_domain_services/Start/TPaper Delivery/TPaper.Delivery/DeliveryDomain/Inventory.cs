@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TPaper.Orders
+namespace TPaper.Delivery
 {
     public class Inventory
     {
