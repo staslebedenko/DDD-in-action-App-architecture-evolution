@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace TPaper.Orders
+namespace TPaper.DeliveryRequest
 {
     public class PaperDbContext : DbContext
     {

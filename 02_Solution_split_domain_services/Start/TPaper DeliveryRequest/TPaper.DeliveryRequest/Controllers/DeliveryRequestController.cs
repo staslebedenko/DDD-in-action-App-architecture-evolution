@@ -1,23 +1,23 @@
 using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace TPaper.Orders
+namespace TPaper.DeliveryRequest
 {
-    public class OrderController
+    public class DeliveryRequestController
     {
         private readonly PaperDbContext context;
 
-        private readonly ILogger<OrderController> logger;
+        private readonly ILogger<DeliveryRequestController> logger;
 
         private readonly HttpClient httpClient;
 
-        public OrderController(PaperDbContext context, HttpClient httpClient, ILogger<OrderController> logger)
+        public DeliveryRequestController(PaperDbContext context, HttpClient httpClient, ILogger<DeliveryRequestController> logger)
         {
             this.context = context;
             this.logger = logger;

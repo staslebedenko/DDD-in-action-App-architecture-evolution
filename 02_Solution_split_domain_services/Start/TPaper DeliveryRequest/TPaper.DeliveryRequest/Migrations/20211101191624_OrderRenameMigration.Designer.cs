@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TPaper.Orders;
+using TPaper.DeliveryRequest;
 
-namespace TPaper.Orders
+namespace TPaper.DeliveryRequest
 {
     [DbContext(typeof(PaperDbContext))]
     [Migration("20211101191624_OrderRenameMigration")]

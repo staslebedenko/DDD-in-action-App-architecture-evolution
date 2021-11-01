@@ -3,26 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TPaper.Orders;
 
-namespace TPaper.Orders
+namespace TPaper.DeliveryRequest
 {
     [DbContext(typeof(PaperDbContext))]
-    [Migration("20201217204850_SecondMigration")]
-    partial class SecondMigration
+    partial class PaperDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("dbo")
-                .HasAnnotation("ProductVersion", "3.1.10")
+                .HasAnnotation("ProductVersion", "3.1.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TPaper.Orders.EdiOrder", b =>
+            modelBuilder.Entity("TPaper.Orders.DeliveryRequest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +43,7 @@ namespace TPaper.Orders
 
                     b.HasKey("Id");
 
-                    b.ToTable("EdiOrder");
+                    b.ToTable("DeliveryRequest");
                 });
 #pragma warning restore 612, 618
         }

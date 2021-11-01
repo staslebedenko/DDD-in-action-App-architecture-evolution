@@ -1,15 +1,15 @@
-﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+﻿using System;
+using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using TPaper.Orders;
+using TPaper.DeliveryRequest;
 
 [assembly: FunctionsStartup(typeof(Startup))]
 
-namespace TPaper.Orders
+namespace TPaper.DeliveryRequest
 {
     public class Startup : FunctionsStartup
     {
@@ -19,7 +19,7 @@ namespace TPaper.Orders
 
             builder.Services.AddLogging(options =>
             {
-                options.AddFilter("TPaper.Orders", LogLevel.Information);
+                options.AddFilter("TPaper.DeliveryRequest", LogLevel.Information);
             });
 
             builder.Services.AddOptions<ProjectOptions>()
