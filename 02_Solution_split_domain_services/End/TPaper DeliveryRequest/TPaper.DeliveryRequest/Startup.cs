@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using TPaper.DeliveryRequest;
 
 [assembly: FunctionsStartup(typeof(Startup))]
@@ -43,6 +44,13 @@ namespace TPaper.DeliveryRequest
             PaperDbContext.ExecuteMigrations(connectionString);
 
             builder.Services.AddHttpClient();
+
+            builder.Services.AddMvcCore().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+
+            builder.Services.AddTransient(typeof(IRepository<>), typeof(SqlRepository<>));
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace TPaper.DeliveryRequest
 {
-    public class DeliveryRequest
+    public class DeliveryRequest : BaseEntity, IAggregateRootMarker
     {
         private DeliveryRequest()
         {
@@ -22,8 +22,6 @@ namespace TPaper.DeliveryRequest
             this.Quantity = quantity;
         }
 
-        public int Id { get; private set; }
-
         public int ClientId { get; private set; }
 
         public decimal Quantity { get; private set; }
@@ -33,6 +31,8 @@ namespace TPaper.DeliveryRequest
         public string Notes { get; private set; }
 
         public int? DeliveryId { get; private set; }
+
+        public Response Response { get; private set; }
 
         public bool IsValid()
         {
@@ -47,6 +47,11 @@ namespace TPaper.DeliveryRequest
         public void AddNotes(string notes)
         {
             this.Notes = notes;
+        }
+
+        public void AddResponse(string status)
+        {
+            Response = new Response(status);
         }
     }
 }

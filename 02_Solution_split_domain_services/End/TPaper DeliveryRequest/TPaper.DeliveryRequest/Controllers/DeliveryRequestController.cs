@@ -11,15 +11,21 @@ namespace TPaper.DeliveryRequest
 {
     public class DeliveryRequestController
     {
-        private readonly PaperDbContext context;
+        //private readonly PaperDbContext context;
 
         private readonly ILogger<DeliveryRequestController> logger;
 
         private readonly HttpClient httpClient;
 
-        public DeliveryRequestController(PaperDbContext context, HttpClient httpClient, ILogger<DeliveryRequestController> logger)
+        private readonly IRepository<DeliveryRequest> deliveryRequestRepository;
+
+        public DeliveryRequestController(
+            IRepository<DeliveryRequest> deliveryRequestRepository, 
+            HttpClient httpClient, 
+            ILogger<DeliveryRequestController> logger)
         {
-            this.context = context;
+            //this.context = context;
+            this.deliveryRequestRepository = deliveryRequestRepository;
             this.logger = logger;
             this.httpClient = httpClient;
         }
@@ -34,9 +40,11 @@ namespace TPaper.DeliveryRequest
 
             var deliveryRequest = new DeliveryRequest(1, 1, quantity);
 
-            DeliveryRequest savedOrder = (await this.context.DeliveryRequest.AddAsync(deliveryRequest, cts)).Entity;
-            await this.context.SaveChangesAsync(cts);
 
+
+            DeliveryRequest savedOrder = await this.deliveryRequestRepository.AddAndReturn(deliveryRequest, cts);
+            //DeliveryRequest savedOrder = (await this.context.DeliveryRequest.AddAsync(deliveryRequest, cts)).Entity;
+            //await this.context.SaveChangesAsync(cts);
 
             Delivery deliveryModel = await CreateDeliveryForOrder(cts, savedOrder);
 

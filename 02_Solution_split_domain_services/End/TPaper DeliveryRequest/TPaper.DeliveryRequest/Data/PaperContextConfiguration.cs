@@ -14,6 +14,7 @@ namespace TPaper.DeliveryRequest
             order.Property(p => p.ProductCode);
             order.Property(p => p.Notes);
             order.Property(p => p.DeliveryId);
+            order.OwnsOne(p => p.Response);
         }
     }
 }
