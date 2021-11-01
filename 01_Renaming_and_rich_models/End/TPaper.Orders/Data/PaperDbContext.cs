@@ -10,7 +10,7 @@ namespace TPaper.Orders
         {
         }
 
-        public DbSet<EdiOrder> EdiOrder { get; set; }
+        public DbSet<DeliveryRequest> DeliveryRequest { get; set; }
         
         public static void ExecuteMigrations(string connectionString)
         {
@@ -36,7 +36,7 @@ namespace TPaper.Orders
         }
 
         /*
-         * dotnet ef migrations add SecondMigration --context PaperDbContext
+         * dotnet ef migrations add OrderRenameMigration --context PaperDbContext
          * dotnet ef database update
          * dotnet ef migrations remove --context PaperDbContext
         */

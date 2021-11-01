@@ -8,7 +8,7 @@ namespace TPaper.Orders
     {
         public static void Configure(ModelBuilder modelBuilder)
         {
-            EntityTypeBuilder<EdiOrder> order = modelBuilder.Entity<EdiOrder>();
+            EntityTypeBuilder<DeliveryRequest> order = modelBuilder.Entity<DeliveryRequest>();
             order.Property(p => p.Id).ValueGeneratedOnAdd();
             order.Property(p => p.ClientId);
             order.Property(p => p.Quantity);

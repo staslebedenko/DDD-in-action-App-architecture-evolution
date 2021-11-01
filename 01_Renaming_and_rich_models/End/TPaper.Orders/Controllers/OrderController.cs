@@ -31,17 +31,9 @@ namespace TPaper.Orders
         {
             this.logger.LogInformation("C# HTTP trigger function processed a request.");
 
-            var order = new EdiOrder
-            {
-                Id = 0,
-                ClientId = 1,
-                DeliveryId = null,
-                Notes = "Test order",
-                ProductCode = 1,
-                Quantity = quantity
-            };
+            var deliveryRequest = new DeliveryRequest(1, 1, quantity);
 
-            EdiOrder savedOrder = (await this.context.EdiOrder.AddAsync(order, cts)).Entity;
+            DeliveryRequest savedOrder = (await this.context.DeliveryRequest.AddAsync(deliveryRequest, cts)).Entity;
             await this.context.SaveChangesAsync(cts);
 
             var deliveryController = new DeliveryController(deliveryContext);

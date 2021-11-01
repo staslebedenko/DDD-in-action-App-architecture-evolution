@@ -13,7 +13,7 @@ namespace TPaper.Orders
             this.context = context;
         }
 
-        public async Task<string> ProcessEdiOrder(EdiOrder order, CancellationToken cts)
+        public async Task<string> ProcessEdiOrder(DeliveryRequest order, CancellationToken cts)
         {
             Product product = await this.context.Product.FirstOrDefaultAsync(x => x.ExternalCode == order.ProductCode, cts);
 
