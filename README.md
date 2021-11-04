@@ -1,5 +1,22 @@
 # DDD in action. Evolution of application architecture and complexity
 
+In this workshop we will cover.
+
+1. Build of the mvp application without DDD is a win and short time to market.
+2. Prepare initial separation for domain logic, because our team has grown and collaboration became hard.
+3. Proceed with Ubiquitous language and refactor our app so that class names allign with customer language.
+4. Split solution in two services and connect them with HTTP
+5. Prepare an aggregate Root
+6. Prepare a repository
+7. Introduce concept of value objects
+8. Introduce repository
+9. Move forward and introduce pub/sub integration between services
+10. Prepare Integration event, aboid domain events, they needed to connect two domains in one solution, which is bad.
+11. Move forward with solution integration
+
+Homework. 
+Introduce aggregate roots for entities in Delivery service
+Store Product in DeliveryRequest service as a value object, so that you can have an extended aggregate.
 
 ## Step 0. Azure infrastructure.
 
